@@ -245,7 +245,7 @@ var define = define || function (){
         return this['exports'];
     };
     Module.prototype.normalize_ = function (modId){
-        return normalize(modId, this.id);
+        return normalize(modId, this['id']);
     };
     Module.prototype.ready_ = function (callback){
         if (this.state_ >= Module.ST_READY_) {
@@ -366,11 +366,11 @@ var define = define || function (){
         for (var i=0; i<mods.length; i++) {
             var mod = mods[i];
             buff.push('<script type="text/javascript" src="');
-            buff.push(mod.uri);
+            buff.push(mod['uri']);
             buff.push('" data-defctxid="');
             buff.push(this._id);
             buff.push('" data-defmodid="');
-            buff.push(mod.id);
+            buff.push(mod['id']);
             buff.push('">');
             buff.push('</script>');
         }
@@ -380,9 +380,9 @@ var define = define || function (){
         for (var i=0; i<mods.length; i++) {
             var mod = mods[i];
             var script = doc.createElement('script');
-            script.setAttribute('src', mod.uri);
+            script.setAttribute('src', mod['uri']);
             script.setAttribute('data-defctxid', this._id);
-            script.setAttribute('data-defmodid', mod.id);
+            script.setAttribute('data-defmodid', mod['id']);
             appendScript(script);
         }
     };
