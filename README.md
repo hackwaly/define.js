@@ -1,5 +1,7 @@
 define.js
 =========
+#How To Use
+
 * use `data-base` attribute to set baseUrl. if's bootstrap path by default.
 * use `data-sync` attribute to set sync mode. it's `"false"` by default.
 * use `data-main` attribute to set main module id. it's required.
