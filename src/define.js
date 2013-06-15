@@ -207,7 +207,7 @@ var define = define || function (){
         this['dependencies'] = deps;
 
         if (this._readyCallbacks.length) {
-            this.context_.require_(deps,
+            this.context_._forReady(deps,
                 bind(this._onDepsReady, this));
         }
     };
@@ -318,32 +318,32 @@ var define = define || function (){
     Context.prototype.resolve_ = function (modId){
         return this.sandbox_.resolve_(modId);
     };
-    Context.prototype.require_ = function (modIds, callback){
+    Context.prototype._forReady = function (modIds, callback){
         if (modIds.length <= 0) {
             callback();
-            return;
-        }
-        var this_ = this;
-        this.lock_(function (){
-            var notReadyCount = modIds.length;
-            function onModReady(){
-                notReadyCount --;
-                checkReady();
-            }
-            function checkReady(){
-                if (notReadyCount !== 0) return false;
-                var array = [];
-                for (var i=0; i<modIds.length; i++) {
-                    array[i] = this_.get_(modIds[i]).getExports_();
+        } else {
+            var this_ = this;
+            this.lock_(function (){
+                var notReadyCount = modIds.length;
+                function onModReady(){
+                    if (-- notReadyCount === 0) callback();
                 }
-                callback.apply(null, array);
-                return true;
-            }
+                for (var i=0; i<modIds.length; i++) {
+                    var module = this.get_(modIds[i]);
+                    module.ready_(onModReady);
+                }
+            }, this);
+        }
+    };
+    Context.prototype.require_ = function (modIds, callback){
+        var this_ = this;
+        this._forReady(modIds, function (){
+            var array = [];
             for (var i=0; i<modIds.length; i++) {
-                var module = this.get_(modIds[i]);
-                module.ready_(onModReady);
+                array[i] = this_.get_(modIds[i]).getExports_();
             }
-        }, this);
+            callback.apply(null, array);
+        });
     };
     Context.prototype.lock_ = function (callback, this_){
         this._lock ++;
