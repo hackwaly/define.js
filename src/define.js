@@ -79,8 +79,10 @@ var define = define || function (){
         _scriptJustAppended = null;
     }
     function removeScript(script){
-        script.parentNode.removeChild(script);
         if (!IE) script.removeEventListener('load', _onNonIEScriptLoad, false);
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
+        }
     }
     function _isNonIEDomNotReady(){
         var rs = doc.readyState;
@@ -220,15 +222,13 @@ var define = define || function (){
         this._readyCallbacks = null;
     };
     Module.prototype.require_ = function (p1, p2){
-        if (typeof p1 === 'object') {
-            this.context_.require_(
-                map(p1, this.normalize_, this),
-                p2);
-            return;
+        if (typeof p1 === 'string') {
+            var module = this.context_.get_(this.normalize_(p1));
+            assert(module && module.state_ >= Module.ST_READY_);
+            return module.getExports_();
         }
-        var module = this.context_.get_(this.normalize_(p1));
-        assert(module && module.state_ >= Module.ST_READY_);
-        return module.getExports_();
+        var asyncCtx = new Context(this.context_.sandbox_, false);
+        asyncCtx.require_(map(p1, this.normalize_, this), p2);
     };
     Module.prototype.getExports_ = function (){
         if (this.state_ === Module.ST_READY_) {
