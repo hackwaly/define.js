@@ -43,5 +43,5 @@ define(function (require, exports){
 ```
 so, you can simply replace the script tag to switch release version and dev version.
 
-you did't need write `require([], function (){ ... })` in your html page.
+you did't need write `require([...], function (){ ... })` in your html page.
 
