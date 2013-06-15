@@ -18,7 +18,7 @@ the difference from other `amd` loader, such as "requirejs" and so on:
 
 in `sync` mode, you can do this.
 ```html
-<script src="define.js" data-main="my_library/your_api" data-sync="true"></script>
+<script src="define.js" data-main="your_library/your_api" data-sync="true"></script>
 <script>
     // you api is ready for use.
     my_api.alert('hello define.js');
@@ -28,7 +28,7 @@ your api
 ```javascript
 var my_api;
 define(function (require){
-    var alert = require('my_library/your_alert');
+    var alert = require('your_library/your_alert');
     my_api = {};
     my_api.alert = alert;
 });
