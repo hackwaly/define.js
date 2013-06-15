@@ -8,7 +8,7 @@ the difference from other `amd` loader, such as "requirejs" and so on:
 
 * not just concat modules. the result you won't see `define` and `require`, include the define closure of almost all module. the result code will in a big closure.
 * you can build a standalone main module script by giving the main module id.
-* you can build a main module script with several lazy load modules as your config. the build-chain will analyze the "async require" (`require([],callback)`) and implicit dependencies(who are in main module, who are in other lazy module, and who are in the up closure). then process it smartly. the lazy module use `eval` to load in the main module's closure. just like "google maps" do.
+* you can build a main module script with several lazy load modules as your config. the build-chain will analyze the "async require" (`require([],callback)`) and implicit dependencies(who are in main module, who are in other lazy module, and who are in the up closure). then process it smartly. the lazy module use `eval` to load in the up module's closure. just like "google maps" do.
 
 # How To Use
 
