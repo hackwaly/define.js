@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+
+#fps {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-weight: bold;
+    color: yellow;
+    background-color: black;
+    z-index: 1001;
+}
+#view {
+    height: 100%;
+}
+#map {
+    height: 100%;
+    /*width: 960px;*/
+    /*height: 640px;*/
+    overflow: hidden;
+}
+#panel {
+    height: 100%;
+    float: left;
+    width: 300px;
+    /*display: none;*/
+}
+#panel_content {
+    margin: 20px;
+    font-size: 13px;
+}

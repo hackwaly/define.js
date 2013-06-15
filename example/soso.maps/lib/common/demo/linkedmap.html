@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../../celljs.js"></script>
+    <script src="../../common.js"></script>
+</head>
+<body>
+<script>
+    define(function (require){
+        var LinkedMap = require('common/struct/LinkedMap');
+        var map = new LinkedMap();
+        for (var i=0; i<10; i++) {
+            map.set(i, i);
+        }
+        map.remove(3);
+        map.remove(6);
+        map.remove(9);
+        while (map.count) {
+            console.log(map.shift());
+        }
+    });
+</script>
+</body>
+</html>

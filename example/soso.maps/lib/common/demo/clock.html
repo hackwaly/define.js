@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../../celljs.js"></script>
+    <script src="../../common.js"></script>
+</head>
+<body>
+<span id="clock"></span>
+<div>
+    <button onclick="timeline.reset();">reset</button>
+    <button onclick="timeline.start();">start</button>
+    <button onclick="timeline.stop();">stop</button>
+    <button onclick="timeline.setSpeed(0.5);">1/2x</button>
+    <button onclick="timeline.setSpeed(1);">1x</button>
+    <button onclick="timeline.setSpeed(2);">2x</button>
+    <button onclick="timeline.setSpeed(100);">100x</button>
+</div>
+<script>
+    var rootTimeline;
+    var timeline;
+    define(function (require){
+        rootTimeline = require('common/fx/timeline');
+        var renderMgr = require('common/render/renderMgr');
+        var elm = document.getElementById('clock');
+        timeline = rootTimeline.subTimeline();
+        renderMgr.loop(function (){
+            elm.innerHTML = new Date(timeline.getTime()).toUTCString();
+        });
+    });
+</script>
+</body>
+</html>
