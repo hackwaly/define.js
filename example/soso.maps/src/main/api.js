@@ -14,4 +14,5 @@ define(function (require){
     soso.maps.NavigationControl = require('soso.maps/control/NavigationControl');
     soso.maps.$renderMgr = require('common/render/renderMgr');
     soso.maps.$timeline = require('common/fx/timeline');
+    return this;
 });
